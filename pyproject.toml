@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "dojo-sandbox-schemas"
+version = "0.1.0"
+description = "DojoCodes Sandbox schemas used both by Sandcodex and Backend"
+authors = ["Sygmei"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pydantic = "^1.9.0"
+
+[tool.poetry.dev-dependencies]
+isort = "^5.10.1"
+black = "^22.1.0"
+flake8 = "^4.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
