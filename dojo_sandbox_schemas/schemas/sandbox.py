@@ -6,7 +6,6 @@ outputs, callbacks..."""
 from __future__ import annotations
 
 from enum import Enum
-from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -22,7 +21,7 @@ class SandboxCallback(BaseModel):
     url: str
     """URL of the external component to call on status update"""
 
-    token: Optional[str] = None
+    token: str | None = None
     """Optional token to pass on the HTTP call"""
 
 
@@ -32,16 +31,16 @@ class SandboxJobInput(BaseModel):
     and files uploaded to the worker
     """
 
-    stdin: Optional[str] = None
+    stdin: str | None = None
     """Optional stdin"""
 
-    parameters: Optional[list[str]] = None
+    parameters: list[str] | None = None
     """Optional parameters to append to the command"""
 
-    files: Optional[list[WorkerFile]] = None
+    files: list[WorkerFile] | None = None
     """Optional files to upload to the worker"""
 
-    command: Optional[str] = None
+    command: str | None = None
     """Overrides the command used to execute the code
     Usually, this should stay equal to `None`
     """
@@ -70,8 +69,8 @@ class SandboxJobCreate(BaseModel):
 
     base_input: SandboxJobInput = Field(default_factory=SandboxJobInput)
     """`SandboxJobInput` that will serve as default when not defined in an input.
-    Each of the `SandboxJobInput` fields are equal to `None` by default, override
-    it in the check to ignore the `base_input`.
+    Each of the `SandboxJobInput` fields are equal to `None` by default,
+    override it in the check to ignore the `base_input`.
     """
 
     inputs: dict[str, SandboxJobInput]
@@ -85,7 +84,7 @@ class SandboxJobCreate(BaseModel):
     (such as code.py, code.js...)
     """
 
-    callback: Optional[SandboxCallback] = None
+    callback: SandboxCallback | None = None
     """Callback that will be called each time the Worker status
     is updated"""
 
@@ -114,7 +113,7 @@ class SandboxJobOutput(BaseModel):
     stderr: str = ""
     """Content of stderr"""
 
-    files: list[WorkerFile] = {}
+    files: list[WorkerFile] = []
     """Will contain every file that was required to be uploaded
     with the `WorkerInputFileType.Uploader` file type
     """
@@ -134,8 +133,8 @@ class SandboxJobState(BaseModel):
     environment: str
     """Unique identifier of the `WorkerEnvironment`"""
 
-    details: Optional[str] = None
+    details: str | None = None
     """Detailed status of the Worker, will contain exceptions reasons if any"""
 
-    outputs: Optional[dict[str, SandboxJobOutput]] = None
+    outputs: dict[str, SandboxJobOutput] | None = None
     """Dictionnary mapping inputs ids to their corresponding outputs"""
