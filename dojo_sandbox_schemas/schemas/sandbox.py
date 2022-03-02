@@ -59,6 +59,9 @@ class SandboxJobInput(BaseModel):
             command=override.command or self.command,
         )
 
+    class Config:
+        orm_mode = True
+
 
 class SandboxJobCreate(BaseModel):
     """Model representing the request required to create a Worker"""
@@ -74,13 +77,13 @@ class SandboxJobCreate(BaseModel):
     override it in the check to ignore the `base_input`.
     """
 
-    inputs: dict[str, SandboxJobInput]
+    inputs: dict[str, SandboxJobInput] = {}
     """Dictionnary mapping check ids to `SandboxJobInput`.
     Each input executes the command with the given `SandboxJobInput`
     """
 
-    user_files: list[WorkerFile] = []
-    """Files uploaded by the user to solve the challenge.
+    files: list[WorkerFile] = []
+    """Files uploaded by the Backend to solve the challenge.
     Usually contains a single file with the user solution
     (such as code.py, code.js...)
     """
@@ -122,6 +125,9 @@ class SandboxJobOutput(BaseModel):
     duration: float
     """Time it took for the Worker to output this result"""
 
+    class Config:
+        orm_mode = True
+
 
 class SandboxJobState(BaseModel):
     id: str
@@ -139,3 +145,6 @@ class SandboxJobState(BaseModel):
 
     outputs: Optional[dict[str, SandboxJobOutput]] = None
     """Dictionnary mapping inputs ids to their corresponding outputs"""
+
+    class Config:
+        orm_mode = True

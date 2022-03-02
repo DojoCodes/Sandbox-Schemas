@@ -52,6 +52,9 @@ class WorkerFile(BaseModel):
                 base64 encoded file content
     """
 
+    class Config:
+        orm_mode = True
+
 
 class WorkerEnvironment(BaseModel):
     id: str
@@ -71,11 +74,14 @@ class WorkerEnvironment(BaseModel):
     command: str
     """Command that will be used to start the code"""
 
-    requires_user_files: Optional[list[WorkerFile]] = None  # TODO: to implement
-    """Requirements for the user sent files
-    Each entry in the `requires_user_files `list will act like a filter.
+    requires_files: Optional[list[WorkerFile]] = None  # TODO: to implement
+    """Requirements for the files when the job starts
+    Each entry in the `requires_files `list will act like a filter.
     It will try to match using the `path` attribute and then check if :
     - the file type is the same
     - the permissions are equal
     - the data is equal
     """
+
+    class Config:
+        orm_mode = True
