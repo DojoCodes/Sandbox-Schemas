@@ -6,6 +6,7 @@ care about inputs, parameters..."""
 from __future__ import annotations
 
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -40,7 +41,7 @@ class WorkerFile(BaseModel):
     permissions: int = 644  # TODO: to implement
     """File / Directory permissions"""
 
-    data: str | None = None
+    data: Optional[str] = None
     """Data of the file
     Will be treated differently depending of the file type :
 
@@ -59,7 +60,7 @@ class WorkerEnvironment(BaseModel):
     image: str
     """Link to a Docker image uploaded to a repository"""
 
-    image_pull_secret: str | None  # TODO: to implement
+    image_pull_secret: Optional[str]  # TODO: to implement
     """Optional secret used to pull the Docker image if private"""
 
     files: list[WorkerFile] = []
@@ -70,7 +71,7 @@ class WorkerEnvironment(BaseModel):
     command: str
     """Command that will be used to start the code"""
 
-    requires_user_files: list[WorkerFile] | None = None  # TODO: to implement
+    requires_user_files: Optional[list[WorkerFile]] = None  # TODO: to implement
     """Requirements for the user sent files
     Each entry in the `requires_user_files `list will act like a filter.
     It will try to match using the `path` attribute and then check if :

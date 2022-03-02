@@ -6,6 +6,7 @@ outputs, callbacks..."""
 from __future__ import annotations
 
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel, Field
 
@@ -21,7 +22,7 @@ class SandboxCallback(BaseModel):
     url: str
     """URL of the external component to call on status update"""
 
-    token: str | None = None
+    token: Optional[str] = None
     """Optional token to pass on the HTTP call"""
 
 
@@ -31,16 +32,16 @@ class SandboxJobInput(BaseModel):
     and files uploaded to the worker
     """
 
-    stdin: str | None = None
+    stdin: Optional[str] = None
     """Optional stdin"""
 
-    parameters: list[str] | None = None
+    parameters: Optional[list[str]] = None
     """Optional parameters to append to the command"""
 
-    files: list[WorkerFile] | None = None
+    files: Optional[list[WorkerFile]] = None
     """Optional files to upload to the worker"""
 
-    command: str | None = None
+    command: Optional[str] = None
     """Overrides the command used to execute the code
     Usually, this should stay equal to `None`
     """
@@ -84,7 +85,7 @@ class SandboxJobCreate(BaseModel):
     (such as code.py, code.js...)
     """
 
-    callback: SandboxCallback | None = None
+    callback: Optional[SandboxCallback] = None
     """Callback that will be called each time the Worker status
     is updated"""
 
@@ -133,8 +134,8 @@ class SandboxJobState(BaseModel):
     environment: str
     """Unique identifier of the `WorkerEnvironment`"""
 
-    details: str | None = None
+    details: Optional[str] = None
     """Detailed status of the Worker, will contain exceptions reasons if any"""
 
-    outputs: dict[str, SandboxJobOutput] | None = None
+    outputs: Optional[dict[str, SandboxJobOutput]] = None
     """Dictionnary mapping inputs ids to their corresponding outputs"""
