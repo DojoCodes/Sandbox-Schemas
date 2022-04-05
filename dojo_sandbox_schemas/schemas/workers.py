@@ -71,7 +71,7 @@ class WorkerEnvironment(BaseModel):
     Usually not required if the user code is standalone.
     """
 
-    before_command: str
+    before_command: Optional[str]
     """Command that will be ran before execution takes place"""
 
     command: str
