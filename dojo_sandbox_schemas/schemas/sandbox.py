@@ -117,6 +117,9 @@ class SandboxJobOutput(BaseModel):
     stderr: str = ""
     """Content of stderr"""
 
+    exit_code: int = 0
+    """Exit code of job command"""
+
     files: list[WorkerFile] = []
     """Will contain every file that was required to be uploaded
     with the `WorkerInputFileType.Uploader` file type

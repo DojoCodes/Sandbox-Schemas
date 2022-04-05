@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dojo-sandbox-schemas"
-version = "1.0.4"
+version = "1.0.6"
 description = "DojoCodes Sandbox schemas used both by Sandcodex and Backend"
 authors = ["Sygmei"]
 license = "MIT"
